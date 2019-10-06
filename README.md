@@ -4,7 +4,7 @@ This is my understanding of how to structure `Go` project layout.
 ## References
 - [GopherCon UK 2018: Kat Zien - How do you structure your Go apps?](https://www.youtube.com/watch?v=VQym87o91f8&t=3s)     
   - This's an amazing talk for the `Go` project layout I think.    
-  - Slides and Code examples can be found in: [katzien/go-structure-examples](https://github.com/katzien/go-structure-examples)    
+  - Slides and code: [katzien/go-structure-examples](https://github.com/katzien/go-structure-examples)    
 - [Standard Go Project Layout](https://github.com/golang-standards/project-layout)    
   - [No, it's NOT a golang standard!!!](https://github.com/golang-standards/project-layout/issues/38) See more in [Delete this repo #36](https://github.com/golang-standards/project-layout/issues/36) and [This repository has multiple serious issues #41](https://github.com/golang-standards/project-layout/issues/41).     
   - It's just an organization name "golang-standards" used by some one to manage these repos. It's harmful if you really think it's a standard and try to always follow it.     
