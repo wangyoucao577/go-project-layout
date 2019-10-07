@@ -2,7 +2,7 @@
 This is my understanding of how to structure `Go` project layout. The most important part is how to organize your `Go` code into packages.          
 
 ## Motivation
-A good project layout will make your source code **easier to understand, easier to test, and eaiser to maintain**.     
+A good project layout will make your source code **easy to understand, easy to test, and easy to maintain**.     
 [Kat Zien](https://github.com/katzien/) has a very good summary([Slides](https://github.com/katzien/talks/tree/master/how-do-you-structure-your-apps/gopherconuk-2018-08-03)) for this, so I'd like to refer it directly as below:        
 
 ### Questions, decisions 
