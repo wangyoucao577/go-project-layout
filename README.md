@@ -28,6 +28,54 @@ will be a key factor in their decision.** - Dave Cheney, Golang UK 2016 keynote
 - Structure reflects the design exactly.     
 
 ## Note
+This topic is kind of best practices. I'd like to discuss some of them and my opinion, then maybe deep into more best practices in the future.     
+
+
+### Top dir `/cmd`
+[**My opinion: Strongly recommended**]     
+The `cmd` layout pattern is very useful when you need to have more than one application binary.      
+
+- Each binary gets a subdirectory (e.g., `your_project/cmd/your_app`).   
+  - The subdirectory is the `main` package for your application.     
+  - Don't put a lot of code in the `main` package. Instead, it should only used to initialises and ties everything together.     
+- This patterns also helps you keep your project/package **go gettable**. 
+  - It means you can use the `go get` command to fetch (and install) your project, its applications and its libraries (e.g., `go get github.com/your_github_username/your_project/cmd/your_app`). 
+- The [official Go tool](https://github.com/golang/tools/tree/master/cmd) is one example of the `cmd` layout patter. A number of other well known projects use the same pattern: [Kubernetes](https://github.com/kubernetes/kubernetes/tree/master/cmd), [Docker](https://github.com/moby/moby/tree/master/cmd), [Prometheus](https://github.com/prometheus/prometheus/tree/master/cmd), [Influxdb](https://github.com/influxdata/influxdb/tree/master/cmd).
+
+
+### Top dir `/pkg`
+[**My opinion: NOT good enough, use it if good for you**]    
+- People also recommend to set up a `/pkg` top dir in `Go` project to put your public libraries.    
+  - These libraries can be used internally by your application.     
+  - They can also be used by external projects. It's an informal contract between you and other external users of your code. Other projects will import these libraries expecting them to work.        
+- But I think it's NOT a good enough idea because
+  - It brings confusion since `Go` workspaces have a directory with the same name and that directory has a different purpose(it’s used to store object files for the packages the `Go` compiler builds).     
+  - The meaning of "public libraries" is not clear enough.    
+    - Even many well known projects use this pattern ([Kubernetes](https://github.com/kubernetes/kubernetes/tree/master/pkg), [Docker](https://github.com/moby/moby/tree/master/pkg), [Grafana](https://github.com/grafana/grafana/tree/master/pkg), [Influxdb](https://github.com/influxdata/influxdb/tree/master/pkg), [Etcd](https://github.com/coreos/etcd/tree/master/pkg)), [Docker](https://github.com/moby/moby/tree/master/pkg) and [Etcd](https://github.com/coreos/etcd/tree/master/pkg) comment the meaning of "public libraries" again. Both of them limit it only as **utility packages**, and these **utility packages** possible to be moved out into its own repository in the future:          
+      - [Docker](https://github.com/moby/moby/tree/master/pkg): `pkg/` is a collection of utility packages used by the [moby](https://github.com/moby/moby/) project without being specific to its internals.    
+      - [Etcd](https://github.com/coreos/etcd/tree/master/pkg): `pkg/` is a collection of utility packages used by etcd without being specific to etcd itself. A package belongs here only if it could possibly be moved out into its own repository in the future.
+
+
+### Group packages by dependency     
+[**My opinion: Strongly recommended**]     
+- Domain types
+  - Domain Types are types that model your business functionality and objects.    
+  - [Ben Johnson - Standard Package Layout](https://medium.com/@benbjohnson/standard-package-layout-7cdbc8391fc1) recommend to place your into root package. This package only contains simple data types, so it will be extremely simple.      
+  - In my opinion, either place them into root package or place them into a individual subpackage are ok. The most important part here is this package should be extermely simple, and not depend on any other package in application!     
+- Each package should only has a single purpose.    
+- Packages names describe their purpose.    
+- When necessary, use a descriptive parent package and several children implementing the functionality.     
+  - like the [encoding package](https://github.com/golang/go/tree/master/src/encoding).    
+- `main` package ties together dependencies
+
+### More best practices
+
+- Follow conventions
+  - Be similar to the standard library and other popular packages 
+  - Don't surprise people
+  - Be obvious, not clever
+- Use [Go modules](https://github.com/golang/go/wiki/Modules)
+- Avoid global scope and `init()`
 
 ## References
 - [GopherCon UK 2018: Kat Zien - How do you structure your Go apps?](https://www.youtube.com/watch?v=VQym87o91f8&t=3s)     
@@ -48,7 +96,9 @@ will be a key factor in their decision.** - Dave Cheney, Golang UK 2016 keynote
 - [Golang UK Conference 2017 | Mat Ryer - Writing Beautiful Packages in Go](https://www.youtube.com/watch?v=cAWlv2SeQus)
 - [CodeBear801 - Golang Package layout](https://github.com/CodeBear801/tech_summary/blob/master/tech-summary/language/go/go-package-layout.md)
 - [golang/go](https://github.com/golang/go)
+- [golang/tools](https://github.com/golang/tools)
 - [moby/moby](https://github.com/moby/moby)
 - [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
 - [etcd-io/etcd](https://github.com/etcd-io/etcd)
-
+- [influxdata/influxdb](https://github.com/influxdata/influxdb)
+- [prometheus/prometheus](https://github.com/prometheus/prometheus)
