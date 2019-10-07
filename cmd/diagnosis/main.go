@@ -9,6 +9,8 @@ import (
 )
 
 func main() {
+	//log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Llongfile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile)
 
 	mux := http.NewServeMux()
 
