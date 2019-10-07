@@ -16,10 +16,11 @@ func main() {
 	mux.HandleFunc("/diagnosis", func(w http.ResponseWriter, req *http.Request) {
 		item := req.URL.Query().Get("diagnosis")
 		if item == "ping" {
-			diagnosisInfo := diagnosis.New()
-			diagnosisInfo.RemoteAddr = req.RemoteAddr // dynamic update for each request
-			fmt.Fprintf(w, "%s", diagnosisInfo)
-			return
+			if di := diagnosis.New(); di != nil {
+				di.RemoteAddr = req.RemoteAddr // dynamic update for each request
+				fmt.Fprintf(w, "%s", di)
+				return
+			}
 		}
 
 		w.WriteHeader(http.StatusNotFound) //404
