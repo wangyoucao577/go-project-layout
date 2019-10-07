@@ -27,6 +27,28 @@ will be a key factor in their decision.** - Dave Cheney, Golang UK 2016 keynote
 - Design reflects exactly how the software works.
 - Structure reflects the design exactly.     
 
+## Demo
+
+```bash
+# shell 1
+$ go version
+go version go1.13.1 linux/amd64
+$
+$ cd $GOPATH
+$ 
+$ go get -u github.com/wangyoucao577/go-project-layout/cmd/echor
+$ ./bin/echor "hello world"
+dlrow olleh
+$
+$ go get -u github.com/wangyoucao577/go-project-layout/cmd/diagnosis
+$ ./bin/diagnosis -alsologtostderr
+I1007 18:50:05.550952    3769 main.go:33] Listen on :8000
+
+# shell 2
+$ curl "http://localhost:8000/diagnosis?diagnosis=ping"
+{"Hostname":"server","IP Addresses":["192.168.29.201/24","fe80::1c20:479:9094:4327/64","192.168.141.1/24","fe80::8002:2d87:c4f3:4aab/64","192.168.128.1/24","fe80::eca9:cfa0:9443:b8ff/64","192.168.44.209/28","fe80::8551:306e:7e7:6faf/64"],"CPUs":8,"Remote Endpoint":"127.0.0.1:64717"}
+```
+
 ## Note
 This topic is kind of best practices. I'd like to discuss some of them and my opinion, then maybe deep into more best practices in the future.     
 
