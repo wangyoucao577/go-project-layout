@@ -36,17 +36,35 @@ go version go1.13.1 linux/amd64
 $
 $ cd $GOPATH
 $ 
+$ # app 1: reverse echo
 $ go get -u github.com/wangyoucao577/go-project-layout/cmd/echor
 $ ./bin/echor "hello world"
 dlrow olleh
 $
+$ # app 2: a simple diagnosis service for server diagnosis. 
+$ #    return `Hostname/IP/CPUs/RemoteAddr...` by `HTTP`. 
+$ #    sample request: `http://localhost:8000/diagnosis?diagnosis=ping`
 $ go get -u github.com/wangyoucao577/go-project-layout/cmd/diagnosis
 $ ./bin/diagnosis -alsologtostderr
 I1007 18:50:05.550952    3769 main.go:33] Listen on :8000
 
 # shell 2
 $ curl "http://localhost:8000/diagnosis?diagnosis=ping"
-{"Hostname":"server","IP Addresses":["192.168.29.201/24","fe80::1c20:479:9094:4327/64","192.168.141.1/24","fe80::8002:2d87:c4f3:4aab/64","192.168.128.1/24","fe80::eca9:cfa0:9443:b8ff/64","192.168.44.209/28","fe80::8551:306e:7e7:6faf/64"],"CPUs":8,"Remote Endpoint":"127.0.0.1:64717"}
+{
+  "Hostname":"server",
+  "IP Addresses":[
+    "192.168.29.201/24",
+    "fe80::1c20:479:9094:4327/64",
+    "192.168.141.1/24",
+    "fe80::8002:2d87:c4f3:4aab/64",
+    "192.168.128.1/24",
+    "fe80::eca9:cfa0:9443:b8ff/64",
+    "192.168.44.209/28",
+    "fe80::8551:306e:7e7:6faf/64"
+  ],
+  "CPUs":8,
+  "Remote Endpoint":"127.0.0.1:64717"
+}
 ```
 
 ## Note
