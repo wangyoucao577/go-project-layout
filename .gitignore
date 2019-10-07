@@ -6,6 +6,7 @@
 *.dylib
 cmd/diagnosis/diagnosis
 cmd/diagnosis/diagnosis.*
+cmd/echor/echor
 
 # Test binary, build with `go test -c`
 *.test
