@@ -1,16 +1,17 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"log"
 	"net/http"
 
+	"github.com/golang/glog"
 	"github.com/wangyoucao577/go-project-layout/diagnosis"
 )
 
 func main() {
-	//log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Llongfile)
-	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile)
+	flag.Parse() // parse flags for glog
+	defer glog.Flush()
 
 	mux := http.NewServeMux()
 
@@ -29,5 +30,6 @@ func main() {
 		fmt.Fprintf(w, "no diagnosis command %s", req.URL)
 	})
 
-	log.Fatal(http.ListenAndServe(":8000", mux))
+	glog.Info("Listen on :8000")
+	glog.Fatal(http.ListenAndServe(":8000", mux))
 }

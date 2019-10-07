@@ -2,7 +2,8 @@ package diagnosis
 
 import (
 	"encoding/json"
-	"log"
+
+	"github.com/golang/glog"
 )
 
 // Info includes information for diagnosis.
@@ -19,7 +20,7 @@ type Info struct {
 func (info Info) String() string {
 	jsonstr, err := json.Marshal(info)
 	if err != nil {
-		log.Fatalf("to json failed, err %v\n", err)
+		glog.Errorf("to json failed, err %v\n", err)
 		return err.Error()
 	}
 	return string(jsonstr)

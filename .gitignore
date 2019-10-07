@@ -5,6 +5,7 @@
 *.so
 *.dylib
 cmd/diagnosis/diagnosis
+cmd/diagnosis/diagnosis.*
 
 # Test binary, build with `go test -c`
 *.test
